@@ -8,6 +8,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/pkg/errors"
@@ -255,4 +256,35 @@ func deepEqual(expect, actual interface{}, breadcrumbs []string) error {
 	}
 
 	return nil
+}
+
+type CandleDataRangeDefinition struct {
+	dtFrom time.Time
+	dtTo   time.Time
+	count  int
+}
+
+func NewCandleDataRange() *CandleDataRangeDefinition {
+	return &CandleDataRangeDefinition{}
+}
+
+func (p *CandleDataRangeDefinition) From(dt time.Time) *CandleDataRangeDefinition {
+	p.dtFrom = dt
+	if !p.dtTo.IsZero() {
+		p.count = 0
+	}
+	return p
+}
+
+func (p *CandleDataRangeDefinition) To(dt time.Time) *CandleDataRangeDefinition {
+	p.dtTo = dt
+	if !p.dtFrom.IsZero() {
+		p.count = 0
+	}
+	return p
+}
+
+func (p *CandleDataRangeDefinition) Count(count int) *CandleDataRangeDefinition {
+	p.count = count
+	return p
 }
