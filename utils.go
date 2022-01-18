@@ -2,6 +2,7 @@ package oanda
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -259,32 +260,79 @@ func deepEqual(expect, actual interface{}, breadcrumbs []string) error {
 }
 
 type CandleDataRangeDefinition struct {
-	dtFrom time.Time
-	dtTo   time.Time
-	count  int
+	From  time.Time
+	To    time.Time
+	Count int
 }
 
 func NewCandleDataRange() *CandleDataRangeDefinition {
 	return &CandleDataRangeDefinition{}
 }
 
-func (p *CandleDataRangeDefinition) From(dt time.Time) *CandleDataRangeDefinition {
-	p.dtFrom = dt
-	if !p.dtTo.IsZero() {
-		p.count = 0
+func (p *CandleDataRangeDefinition) WithFrom(dt time.Time) *CandleDataRangeDefinition {
+	p.From = dt
+	if !p.To.IsZero() {
+		p.Count = 0
 	}
 	return p
 }
 
-func (p *CandleDataRangeDefinition) To(dt time.Time) *CandleDataRangeDefinition {
-	p.dtTo = dt
-	if !p.dtFrom.IsZero() {
-		p.count = 0
+func (p *CandleDataRangeDefinition) WithTo(dt time.Time) *CandleDataRangeDefinition {
+	p.To = dt
+	if !p.From.IsZero() {
+		p.Count = 0
 	}
 	return p
 }
 
-func (p *CandleDataRangeDefinition) Count(count int) *CandleDataRangeDefinition {
-	p.count = count
+func (p *CandleDataRangeDefinition) WithCount(count int) *CandleDataRangeDefinition {
+	p.Count = count
 	return p
+}
+
+func OandaTimeFrame2Duration(timeFrame CandlestickGranularityDefinition) time.Duration {
+	switch timeFrame {
+	case S5:
+		return time.Second * 5 // 5 second candlesticks, minute alignment
+	case S10:
+		return time.Second * 10 // 10 second candlesticks, minute alignment
+	case S15:
+		return time.Second * 15 // 15 second candlesticks, minute alignment
+	case S30:
+		return time.Second * 30 // 30 second candlesticks, minute alignment
+	case M1:
+		return time.Minute * 1 // 1 minute candlesticks, minute alignment
+	case M2:
+		return time.Minute * 2 // 2 minute candlesticks, hour alignment
+	case M4:
+		return time.Minute * 4 // 4 minute candlesticks, hour alignment
+	case M5:
+		return time.Minute * 5 // 5 minute candlesticks, hour alignment
+	case M10:
+		return time.Minute * 10 // 10 minute candlesticks, hour alignment
+	case M15:
+		return time.Minute * 15 // 15 minute candlesticks, hour alignment
+	case M30:
+		return time.Minute * 30 // 30 minute candlesticks, hour alignment
+	case H1:
+		return time.Hour * 1 // 1 hour candlesticks, hour alignment
+	case H2:
+		return time.Hour * 2 // 2 hour candlesticks, day alignment
+	case H3:
+		return time.Hour * 3 // 3 hour candlesticks, day alignment
+	case H4:
+		return time.Hour * 4 // 4 hour candlesticks, day alignment
+	case H6:
+		return time.Hour * 6 // 6 hour candlesticks, day alignment
+	case H8:
+		return time.Hour * 8 // 8 hour candlesticks, day alignment
+	case H12:
+		return time.Hour * 12 // 12 hour candlesticks, day alignment
+	case D:
+		return time.Hour * 24 // 1 day candlesticks, day alignment
+	case W:
+		return time.Hour * 24 * 7 // 1 week candlesticks, aligned to start of week
+	default:
+		panic(fmt.Sprintf("timeframe %s not handled", timeFrame))
+	}
 }
