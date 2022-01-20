@@ -290,8 +290,8 @@ func (p *CandleDataRangeDefinition) WithCount(count int) *CandleDataRangeDefinit
 	return p
 }
 
-func OandaTimeFrame2Duration(timeFrame CandlestickGranularityDefinition) time.Duration {
-	switch timeFrame {
+func Granularity2Duration(granDef CandlestickGranularityDefinition) time.Duration {
+	switch granDef {
 	case S5:
 		return time.Second * 5 // 5 second candlesticks, minute alignment
 	case S10:
@@ -333,6 +333,53 @@ func OandaTimeFrame2Duration(timeFrame CandlestickGranularityDefinition) time.Du
 	case W:
 		return time.Hour * 24 * 7 // 1 week candlesticks, aligned to start of week
 	default:
-		panic(fmt.Sprintf("timeframe %s not handled", timeFrame))
+		panic(fmt.Sprintf("granularity %s not handled", granDef))
+	}
+}
+
+func Duration2Granularity(dur time.Duration) CandlestickGranularityDefinition {
+	switch dur {
+	case time.Second * 5:
+		return S5 // 5 second candlesticks, minute alignment
+	case time.Second * 10:
+		return S10 // 10 second candlesticks, minute alignment
+	case time.Second * 15:
+		return S15 // 15 second candlesticks, minute alignment
+	case time.Second * 30:
+		return S30 // 30 second candlesticks, minute alignment
+	case time.Minute * 1:
+		return M1 // 1 minute candlesticks, minute alignment
+	case time.Minute * 2:
+		return M2 // 2 minute candlesticks, hour alignment
+	case time.Minute * 4:
+		return M4 // 4 minute candlesticks, hour alignment
+	case time.Minute * 5:
+		return M5 // 5 minute candlesticks, hour alignment
+	case time.Minute * 10:
+		return M10 // 10 minute candlesticks, hour alignment
+	case time.Minute * 15:
+		return M15 // 15 minute candlesticks, hour alignment
+	case time.Minute * 30:
+		return M30 // 30 minute candlesticks, hour alignment
+	case time.Hour * 1:
+		return H1 // 1 hour candlesticks, hour alignment
+	case time.Hour * 2:
+		return H2 // 2 hour candlesticks, day alignment
+	case time.Hour * 3:
+		return H3 // 3 hour candlesticks, day alignment
+	case time.Hour * 4:
+		return H4 // 4 hour candlesticks, day alignment
+	case time.Hour * 6:
+		return H6 // 6 hour candlesticks, day alignment
+	case time.Hour * 8:
+		return H8 // 8 hour candlesticks, day alignment
+	case time.Hour * 12:
+		return H12 // 12 hour candlesticks, day alignment
+	case time.Hour * 24:
+		return D // 1 day candlesticks, day alignment
+	case time.Hour * 24 * 7:
+		return W // 1 week candlesticks, aligned to start of week
+	default:
+		panic(fmt.Sprintf("granularity %s not handled", dur))
 	}
 }
