@@ -28,34 +28,36 @@ type AccountDefinition struct {
 	Financing                   AccountUnitsDefinition                `json:"financing,omitempty"`
 	Commission                  AccountUnitsDefinition                `json:"commission,omitempty"`
 	Dividend                    AccountUnitsDefinition                `json:"dividend,omitempty"`
+	DividendAdjustment          AccountUnitsDefinition                `json:"dividendAdjustment,omitempty"`
 	GuaranteedExecutionFees     AccountUnitsDefinition                `json:"guaranteedExecutionFees,omitempty"`
 	MarginRate                  DecimalNumberDefinition               `json:"marginRate,omitempty"`
 	MarginCallEnterTime         DateTimeDefinition                    `json:"marginCallEnterTime,omitempty"`
 	MarginCallExtensionCount    *int                                  `json:"marginCallExtensionCount,omitempty"`
 	LastMarginCallExtensionTime DateTimeDefinition                    `json:"lastMarginCallExtensionTime,omitempty"`
-	OpenTradeCount              *int                                  `json:"openTradeCount,omitempty"`
-	OpenPositionCount           *int                                  `json:"openPositionCount,omitempty"`
-	PendingOrderCount           *int                                  `json:"pendingOrderCount,omitempty"`
-	HedgingEnabled              *bool                                 `json:"hedgingEnabled,omitempty"`
-	UnrealizedPL                AccountUnitsDefinition                `json:"unrealizedPL,omitempty"`
-	NAV                         AccountUnitsDefinition                `json:"NAV,omitempty"`
-	MarginUsed                  AccountUnitsDefinition                `json:"marginUsed,omitempty"`
-	MarginAvailable             AccountUnitsDefinition                `json:"marginAvailable,omitempty"`
-	PositionValue               AccountUnitsDefinition                `json:"positionValue,omitempty"`
-	MarginCloseoutUnrealizedPL  AccountUnitsDefinition                `json:"marginCloseoutUnrealizedPL,omitempty"`
-	MarginCloseoutNAV           AccountUnitsDefinition                `json:"marginCloseoutNAV,omitempty"`
-	MarginCloseoutMarginUsed    AccountUnitsDefinition                `json:"marginCloseoutMarginUsed,omitempty"`
-	MarginCloseoutPercent       DecimalNumberDefinition               `json:"marginCloseoutPercent,omitempty"`
-	MarginCloseoutPositionValue DecimalNumberDefinition               `json:"marginCloseoutPositionValue,omitempty"`
-	WithdrawalLimit             AccountUnitsDefinition                `json:"withdrawalLimit,omitempty"`
-	MarginCallMarginUsed        AccountUnitsDefinition                `json:"marginCallMarginUsed,omitempty"`
-	MarginCallPercent           DecimalNumberDefinition               `json:"marginCallPercent,omitempty"`
-	LastTransactionID           TransactionIDDefinition               `json:"lastTransactionID,omitempty"`
-	Trades                      []*TradeSummaryDefinition             `json:"trades,omitempty"`
-	Positions                   []*PositionDefinition                 `json:"positions,omitempty"`
-	Orders                      []*OrderDefinition                    `json:"orders,omitempty"`
 
-	DividendAdjustment Undefined `json:"dividendAdjustment,omitempty"`
+	// undocumented
+	LastDividendAdjustmentTimestamps []DividendAdjustmentTimestampsDefinition `json:"lastDividendAdjustmentTimestamps,omitempty"`
+	OpenTradeCount                   *int                                     `json:"openTradeCount,omitempty"`
+	OpenPositionCount                *int                                     `json:"openPositionCount,omitempty"`
+	PendingOrderCount                *int                                     `json:"pendingOrderCount,omitempty"`
+	HedgingEnabled                   *bool                                    `json:"hedgingEnabled,omitempty"`
+	UnrealizedPL                     AccountUnitsDefinition                   `json:"unrealizedPL,omitempty"`
+	NAV                              AccountUnitsDefinition                   `json:"NAV,omitempty"`
+	MarginUsed                       AccountUnitsDefinition                   `json:"marginUsed,omitempty"`
+	MarginAvailable                  AccountUnitsDefinition                   `json:"marginAvailable,omitempty"`
+	PositionValue                    AccountUnitsDefinition                   `json:"positionValue,omitempty"`
+	MarginCloseoutUnrealizedPL       AccountUnitsDefinition                   `json:"marginCloseoutUnrealizedPL,omitempty"`
+	MarginCloseoutNAV                AccountUnitsDefinition                   `json:"marginCloseoutNAV,omitempty"`
+	MarginCloseoutMarginUsed         AccountUnitsDefinition                   `json:"marginCloseoutMarginUsed,omitempty"`
+	MarginCloseoutPercent            DecimalNumberDefinition                  `json:"marginCloseoutPercent,omitempty"`
+	MarginCloseoutPositionValue      DecimalNumberDefinition                  `json:"marginCloseoutPositionValue,omitempty"`
+	WithdrawalLimit                  AccountUnitsDefinition                   `json:"withdrawalLimit,omitempty"`
+	MarginCallMarginUsed             AccountUnitsDefinition                   `json:"marginCallMarginUsed,omitempty"`
+	MarginCallPercent                DecimalNumberDefinition                  `json:"marginCallPercent,omitempty"`
+	LastTransactionID                TransactionIDDefinition                  `json:"lastTransactionID,omitempty"`
+	Trades                           []*TradeSummaryDefinition                `json:"trades,omitempty"`
+	Positions                        []*PositionDefinition                    `json:"positions,omitempty"`
+	Orders                           []*OrderDefinition                       `json:"orders,omitempty"`
 }
 
 type AccountChangesStateDefinition struct {
