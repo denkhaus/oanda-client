@@ -10,18 +10,17 @@ import (
 )
 
 func Test_Pricing(t *testing.T) {
-	t.Run("Success", func(t *testing.T) {
-		connection := newConnection(t, OandaPractice)
-		accountID := Getenv("ACCOUNT_ID")
+	connection := newConnection(t, OandaPractice)
+	accountID := Getenv("ACCOUNT_ID")
 
-		params := &GetPricingParams{Instruments: []string{"JP225_USD"}}
-		data, err := connection.Accounts().AccountID(accountID).Pricing().Get(context.Background(), params)
-		if err != nil {
-			t.Fatalf("Error occurred.\n%+v", err)
-		}
+	params := &GetPricingParams{Instruments: []string{"EUR_USD"}}
+	data, err := connection.Accounts().AccountID(accountID).Pricing().Get(context.Background(), params)
+	if err != nil {
+		t.Fatalf("Error occurred.\n%+v", err)
+	}
 
-		t.Logf("Response:\n%s", spew.Sdump(data))
-	})
+	t.Logf("Response:\n%s", spew.Sdump(data))
+
 }
 
 func Test_PricingStream(t *testing.T) {

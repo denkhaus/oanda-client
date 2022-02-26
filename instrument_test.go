@@ -8,6 +8,20 @@ import (
 	"github.com/davecgh/go-spew/spew"
 )
 
+func Test_InstrumentCandlesSingle(t *testing.T) {
+	connection := newConnection(t, OandaPractice)
+	params := &GetInstrumentCandlesParams{
+		Count: 1,
+	}
+
+	data, err := connection.Instruments().Instrument("EUR_USD").Candles().Get(context.Background(), params)
+	if err != nil {
+		t.Fatalf("Error occurred.\n%+v", err)
+	}
+
+	t.Logf("Response:\n%s", spew.Sdump(data))
+}
+
 func Test_InstrumentCandles(t *testing.T) {
 	t.Run("Success", func(t *testing.T) {
 		connection := newConnection(t, OandaPractice)
