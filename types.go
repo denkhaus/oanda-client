@@ -1282,6 +1282,14 @@ func (p Reason) Description() string {
 	return string(p)
 }
 
+func (p Reason) IsInsufficientLiquidity() bool {
+	return p == "INSUFFICIENT_LIQUIDITY"
+}
+
+func (p Reason) IsInsufficientMargin() bool {
+	return p == "INSUFFICIENT_MARGIN"
+}
+
 type TransactionFilterDefinition = string
 
 const (

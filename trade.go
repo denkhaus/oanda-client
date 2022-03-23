@@ -145,6 +145,14 @@ func (p *TradeResult) IsCanceled() bool {
 	return p.OrderCancelTransaction != nil
 }
 
+func (p *TradeResult) IsCanceledWithInsufficientLiquidity() bool {
+	return p.IsCanceled() && p.OrderCancelTransaction.Reason.IsInsufficientLiquidity()
+}
+
+func (p *TradeResult) IsCanceledWithInsufficientMargin() bool {
+	return p.IsCanceled() && p.OrderCancelTransaction.Reason.IsInsufficientMargin()
+}
+
 /* Schemas */
 
 type GetTradesSchema struct {
