@@ -290,6 +290,53 @@ func (p *CandleDataRangeDefinition) WithCount(count int) *CandleDataRangeDefinit
 	return p
 }
 
+func IsGranularityValid(granDef CandlestickGranularityDefinition) bool {
+	switch granDef {
+	case S5:
+		fallthrough
+	case S10:
+		fallthrough
+	case S15:
+		fallthrough
+	case S30:
+		fallthrough
+	case M1:
+		fallthrough
+	case M2:
+		fallthrough
+	case M4:
+		fallthrough
+	case M5:
+		fallthrough
+	case M10:
+		fallthrough
+	case M15:
+		fallthrough
+	case M30:
+		fallthrough
+	case H1:
+		fallthrough
+	case H2:
+		fallthrough
+	case H3:
+		fallthrough
+	case H4:
+		fallthrough
+	case H6:
+		fallthrough
+	case H8:
+		fallthrough
+	case H12:
+		fallthrough
+	case D:
+		fallthrough
+	case W:
+		return true
+	default:
+		return false
+	}
+}
+
 func Granularity2Duration(granDef CandlestickGranularityDefinition) time.Duration {
 	switch granDef {
 	case S5:
