@@ -331,6 +331,8 @@ func IsGranularityValid(granDef CandlestickGranularityDefinition) bool {
 	case D:
 		fallthrough
 	case W:
+		fallthrough
+	case M:
 		return true
 	default:
 		return false
@@ -379,6 +381,8 @@ func Granularity2Duration(granDef CandlestickGranularityDefinition) time.Duratio
 		return time.Hour * 24 // 1 day candlesticks, day alignment
 	case W:
 		return time.Hour * 24 * 7 // 1 week candlesticks, aligned to start of week
+	case M:
+		return time.Hour * 24 * 30 // 1 month candlesticks, aligned to first day of the month
 	default:
 		panic(fmt.Sprintf("granularity %s not handled", granDef))
 	}
@@ -426,6 +430,8 @@ func Duration2Granularity(dur time.Duration) CandlestickGranularityDefinition {
 		return D // 1 day candlesticks, day alignment
 	case time.Hour * 24 * 7:
 		return W // 1 week candlesticks, aligned to start of week
+	case time.Hour * 24 * 30:
+		return M // 1 month candlesticks, aligned to first day of the month
 	default:
 		panic(fmt.Sprintf("granularity %s not handled", dur))
 	}
