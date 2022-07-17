@@ -1261,6 +1261,8 @@ func (p Reason) Description() string {
 		return "Filling the order would require the creation of a long trade, however the instrument is configured such that orders being filled using ask prices can only reduce existing positions. New long positions cannot be created, but existing short positions may be reduced or closed."
 	case "INSTRUMENT_BID_HALTED":
 		return "Filling the order would require using the bid, however the instrument is configured such that the bids are halted, and so no short orders may be filled."
+	case "INSTRUMENT_NOT_TRADEABLE":
+		return "The Instrument ID(s) specified are not tradeable."
 	case "INSTRUMENT_ASK_HALTED":
 		return "Filling the order would require using the ask, however the instrument is configured such that the asks are halted, and so no long orders may be filled."
 	case "STOP_LOSS_ON_FILL_GUARANTEED_BID_HALTED":
@@ -1280,6 +1282,10 @@ func (p Reason) Description() string {
 	}
 
 	return string(p)
+}
+
+func (p Reason) IsInstrumentNotTrabable() bool {
+	return p == "INSTRUMENT_NOT_TRADEABLE"
 }
 
 func (p Reason) IsInsufficientLiquidity() bool {

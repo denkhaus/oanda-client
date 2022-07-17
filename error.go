@@ -33,7 +33,9 @@ func (r *ForbiddenError) Error() string {
 // 404 Not Found
 
 type NotFoundError struct {
-	ErrorMessage string `json:"errorMessage"`
+	ErrorMessage      string `json:"errorMessage"`
+	ErrorCode         Reason `json:"errorCode"`
+	LastTransactionID string `json:"lastTransactionID"`
 }
 
 func (r *NotFoundError) Error() string {
